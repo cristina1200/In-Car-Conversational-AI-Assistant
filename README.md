@@ -1,38 +1,63 @@
-# In-Car Conversational AI Assistant
+# In-Car Conversational AI
 
-A modern cockpit-style web application that allows drivers and passengers to interact with vehicle functions through natural language and voice commands.
+An intelligent conversational assistant designed for vehicle interiors. The application allows drivers and passengers to control simulated vehicle functions using natural-language text commands and voice commands.
 
-The assistant can control climate settings, seat heating, fan speed, media, volume and ambient lighting. The application combines a React frontend with a FastAPI backend and an AI processing module.
+The system combines a React frontend, a FastAPI backend, an AI command-processing module and a SQLite database for persistent users, profiles and vehicle sessions.
 
-## Features
+## Main Features
 
-- Cockpit-style vehicle dashboard
-- Driver and passenger temperature display
-- Animated temperature dials
-- Driver and passenger seat heating levels
-- Fan speed indicator
-- Volume control and progress visualization
-- Media status and current song display
-- Ambient lighting controls
-- Romanian natural-language commands
-- Text-based AI assistant
-- Voice command recording using the browser microphone
-- Audio transcription using Whisper
-- Scrollable assistant chat
-- Automatic scroll to the newest message
-- Quick command buttons
+- Natural-language vehicle control
+- Voice command support
+- Temperature control for the driver and passenger
+- Driver and passenger seat heating
+- Fan speed control
+- Volume control
+- Media playback control
+- Ambient lighting control
+- Driver and passenger roles
+- Persistent user accounts
+- User profiles and personal preferences
+- Active vehicle sessions
+- Profile association with session participants
+- AI command interpretation
+- Whisper-based audio transcription
+- Safety validation for vehicle commands
+- Real-time vehicle state updates
+- Cockpit-style dashboard
+- Responsive user interface
+- Weather and current time display
+- Scrollable AI conversation
 - Loading and error states
-- Driver and passenger role selection
-- User preferences management
-- Driver-specific and passenger-specific preferences
-- Apply Preferences functionality
-- Login and Sign up interface
-- User profile menu
-- Current user and session information
-- Current time display
-- Cluj-Napoca weather display
-- Responsive layout for smaller screens
-- Safety validation for unsupported vehicle commands
+
+## System Architecture
+
+```text
+User
+ │
+ ├── Text command
+ │
+ └── Voice command
+        │
+        ▼
+React Frontend
+        │
+        ├── POST /assistant/message
+        └── POST /speech/transcribe
+                    │
+                    ▼
+FastAPI Backend
+        │
+        ├── AI Engine
+        ├── Whisper Transcription
+        ├── Safety Validation
+        ├── Vehicle Service
+        ├── User Service
+        ├── Profile Service
+        └── Session Service
+                    │
+                    ▼
+SQLite Database
+```
 
 ## Technologies
 
@@ -51,140 +76,177 @@ The assistant can control climate settings, seat heating, fan speed, media, volu
 
 - Python
 - FastAPI
-- SQLite
 - Pydantic
 - Uvicorn
+- SQLite
 - Pytest
-- Whisper for audio transcription
-- OpenAI API for conversational command processing
+- Whisper
+- OpenAI API
 
-## Application Architecture
+### Development Tools
 
-The project is divided into three main parts:
+- Git
+- GitLab
+- VS Code
+- Swagger/OpenAPI
+- Postman
+- npm
+- Python virtual environment
 
-```text
-Frontend → Backend API → AI and Vehicle Services
-```
-
-The frontend is responsible for displaying the cockpit interface, collecting user input and sending requests to the backend.
-
-The backend processes messages, validates vehicle actions, updates the simulated vehicle state and returns the result to the frontend.
-
-The AI module interprets natural-language commands and converts them into structured vehicle actions.
-
-## Frontend Structure
+## Project Structure
 
 ```text
-frontend/
-├── public/
-│   └── dashboard assets
+team1_placeholder/
 │
-├── src/
-│   ├── components/
-│   │   ├── AccountMenu.tsx
-│   │   ├── AccountMenu.css
-│   │   ├── AmbientLighting.tsx
-│   │   ├── AmbientLighting.css
-│   │   ├── AssistantPanel.tsx
-│   │   ├── AssistantPanel.css
-│   │   ├── Cockpit.tsx
-│   │   ├── Cockpit.css
-│   │   ├── FanIndicator.tsx
-│   │   ├── Layout.tsx
-│   │   ├── Layout.css
-│   │   ├── MediaPanel.tsx
-│   │   ├── MediaPanel.css
-│   │   ├── PreferencesPanel.tsx
-│   │   ├── PreferencesPanel.css
-│   │   ├── SeatHeatingIndicator.tsx
-│   │   ├── VehicleStatus.tsx
-│   │   └── VehicleStatus.css
+├── frontend/
+│   ├── public/
 │   │
-│   ├── hooks/
-│   │   ├── useAnimatedNumber.ts
-│   │   └── useSpeechRecognition.ts
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── AccountMenu.tsx
+│   │   │   ├── AmbientLighting.tsx
+│   │   │   ├── AssistantPanel.tsx
+│   │   │   ├── Cockpit.tsx
+│   │   │   ├── FanIndicator.tsx
+│   │   │   ├── Layout.tsx
+│   │   │   ├── MediaPanel.tsx
+│   │   │   ├── PreferencesPanel.tsx
+│   │   │   ├── SeatHeatingIndicator.tsx
+│   │   │   └── VehicleStatus.tsx
+│   │   │
+│   │   ├── hooks/
+│   │   │   ├── useAnimatedNumber.ts
+│   │   │   └── useSpeechRecognition.ts
+│   │   │
+│   │   ├── services/
+│   │   │   ├── api.ts
+│   │   │   └── profileStorage.ts
+│   │   │
+│   │   ├── App.tsx
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   ├── main.tsx
+│   │   └── types.ts
 │   │
-│   ├── services/
-│   │   ├── api.ts
-│   │   └── profileStorage.ts
-│   │
-│   ├── App.tsx
-│   ├── App.css
-│   ├── index.css
-│   ├── main.tsx
-│   └── types.ts
+│   ├── package.json
+│   └── vite.config.ts
 │
-├── package.json
-└── vite.config.ts
+├── backend/
+│   ├── app/
+│   │   ├── ai/
+│   │   │   ├── engine.py
+│   │   │   ├── fallback.py
+│   │   │   ├── prompts.py
+│   │   │   ├── safety.py
+│   │   │   ├── schemas.py
+│   │   │   ├── tools.py
+│   │   │   └── transcription.py
+│   │   │
+│   │   ├── db/
+│   │   │   ├── connection.py
+│   │   │   └── init_db.py
+│   │   │
+│   │   ├── repositories/
+│   │   │   ├── profile_repository.py
+│   │   │   ├── session_repository.py
+│   │   │   └── user_repository.py
+│   │   │
+│   │   ├── schemas/
+│   │   │   ├── ai_response.py
+│   │   │   ├── profile.py
+│   │   │   ├── session.py
+│   │   │   └── user.py
+│   │   │
+│   │   ├── services/
+│   │   │   ├── profile_service.py
+│   │   │   ├── session_service.py
+│   │   │   └── user_service.py
+│   │   │
+│   │   ├── vehicle/
+│   │   │   ├── constants.py
+│   │   │   ├── service.py
+│   │   │   └── state.py
+│   │   │
+│   │   └── main.py
+│   │
+│   ├── data/
+│   │   └── app.sqlite3
+│   │
+│   └── tests/
+│       ├── test_ai_engine.py
+│       ├── test_db_infrastructure.py
+│       ├── test_profile_service.py
+│       ├── test_safety.py
+│       ├── test_session_service.py
+│       └── test_vehicle_service.py
+│
+├── docs/
+├── specs/
+└── README.md
 ```
 
-## Main Components
+## Frontend
 
-### Layout
+The frontend provides the user interface of the application.
 
-The `Layout` component defines the general application structure.
+### Main Components
 
-It contains:
+#### Layout
+
+Responsible for:
 
 - Sidebar navigation
 - Application header
-- Current weather
 - Current time
+- Weather information
 - Active user profile
 - Main content area
 
-### Cockpit
+#### Cockpit
 
-The `Cockpit` component displays the main vehicle dashboard.
-
-It contains:
+Displays the simulated vehicle dashboard, including:
 
 - Driver temperature
 - Passenger temperature
-- Animated temperature dials
-- Seat heating status
+- Seat heating
 - Fan speed
 - Volume
 - Media status
 - Air conditioning status
-- Ambient lighting status
-- User preference summary
+- Ambient lighting
+- User preferences
 
-### AssistantPanel
+#### AssistantPanel
 
-The `AssistantPanel` component contains the conversational interface.
+Provides the conversational interface, including:
 
-It provides:
-
-- User and assistant messages
-- Message bubbles
-- Quick commands
+- User messages
+- Assistant responses
 - Text input
-- Microphone recording
-- Send button
+- Voice input
+- Quick commands
 - Loading state
 - Error messages
 - Scrollable conversation history
 
-### AccountMenu
+#### AccountMenu
 
-The `AccountMenu` component manages the current user profile.
+Manages the active user and role selection.
 
-It provides:
+It includes:
 
-- Active user display
-- Driver and passenger role selection
-- Expandable profile menu
+- Current user display
+- Driver and passenger roles
 - Login interface
 - Sign up interface
 - Edit Preferences option
 - Logout functionality
 
-### PreferencesPanel
+#### PreferencesPanel
 
-The `PreferencesPanel` allows the current user to configure personal vehicle preferences.
+Allows users to configure personal preferences for the current role.
 
-Depending on the selected role, the user can configure:
+The available preferences include:
 
 - Driver or passenger temperature
 - Driver or passenger seat heating
@@ -192,33 +254,95 @@ Depending on the selected role, the user can configure:
 - Volume
 - Ambient lighting
 
-The selected preferences can be saved and applied to the current vehicle session.
+The preferences can be saved and applied to the current vehicle session.
 
-### AmbientLighting
+## Backend
 
-The `AmbientLighting` component allows the user to select the interior lighting color.
+The backend is implemented using FastAPI and contains the main application logic.
 
-Available colors include:
+### AI Module
 
-- Blue
-- Red
-- Green
-- White
-- Purple
-- Yellow
+The AI module:
 
-The interface displays the colors in English, while the generated chat commands use Romanian color names such as `albastru`, `roșu`, `alb` and `mov`.
+- Receives natural-language messages
+- Identifies the requested vehicle action
+- Extracts action parameters
+- Generates a conversational response
+- Checks whether the action is allowed
+- Returns structured vehicle actions
+
+### Vehicle Service
+
+The vehicle service manages the simulated vehicle state.
+
+It controls:
+
+- Temperature
+- Seat heating
+- Fan speed
+- Volume
+- Media playback
+- Ambient lighting
+- Air conditioning
+
+The service validates action parameters before updating the state.
+
+### Safety Module
+
+The safety module rejects unsupported or dangerous actions.
+
+Examples of rejected actions include:
+
+- Accelerating
+- Braking
+- Overtaking
+- Other unsupported driving operations
+
+Rejected commands do not modify the vehicle state.
+
+### User Service
+
+The user service manages:
+
+- User creation
+- Unique `user_id` generation
+- Email validation
+- Password hashing
+- User retrieval
+- Login validation
+
+Passwords are stored as secure hashes and are never returned by the API.
+
+### Profile Service
+
+The profile service manages:
+
+- Creating profiles
+- Listing user profiles
+- Updating profiles
+- Validating profile ownership
+- Driver and passenger preferences
+- Ambient lighting preferences
+
+### Session Service
+
+The session service manages:
+
+- Creating active vehicle sessions
+- Adding participants
+- Assigning driver and passenger roles
+- Associating profiles with participants
+- Allowing only one driver per session
+- Closing sessions
 
 ## Voice Command Flow
-
-The voice interaction follows this flow:
 
 ```text
 User presses the microphone button
         ↓
-Browser records audio using MediaRecorder
+Frontend records audio using MediaRecorder
         ↓
-Audio file is sent to /speech/transcribe
+Audio is sent to /speech/transcribe
         ↓
 Whisper converts audio into text
         ↓
@@ -226,25 +350,29 @@ The text is sent to /assistant/message
         ↓
 The AI interprets the command
         ↓
-The vehicle state is updated
+The backend validates and executes the action
         ↓
-The response is displayed in the chat
+The updated vehicle state is returned
+        ↓
+The result is displayed in the chat and cockpit
 ```
 
-Voice recording is implemented on the frontend, while audio transcription is handled by the backend.
+The existing speech transcription endpoint is:
+
+```http
+POST /speech/transcribe
+```
 
 ## Text Command Flow
 
-For a text command, the flow is:
-
 ```text
-User enters a message
+User enters a text command
         ↓
 Frontend sends the message to the backend
         ↓
-AI interprets the request
+AI identifies the requested action
         ↓
-Backend validates the action
+Safety validation is performed
         ↓
 Vehicle state is updated
         ↓
@@ -255,12 +383,12 @@ Example commands:
 
 ```text
 Set the temperature to 24 degrees
-Turn on the seat heating
+Turn on the driver's seat heating
 Increase the volume
 Set the ambient light to purple
 ```
 
-The frontend also supports Romanian commands generated from preference selections, such as:
+The application also supports Romanian commands generated from preference selections:
 
 ```text
 Setează temperatura șoferului la 22 de grade
@@ -268,27 +396,34 @@ Setează lumina ambientală pe mov
 Dă muzica mai tare
 ```
 
-## Backend API
+## API Endpoints
 
-The frontend communicates with the following backend endpoints:
+### General
 
-```text
-GET  /health
-GET  /vehicle/state
-POST /vehicle/reset
-POST /assistant/message
-POST /speech/transcribe
-POST /users
-POST /auth/login
-GET  /users/{user_id}
-POST /profiles
-GET  /profiles
-PUT  /profiles/{profile_id}
-POST /sessions
-GET  /sessions/{session_id}
+```http
+GET /health
 ```
 
-### Assistant message request
+Checks whether the backend is running.
+
+### Vehicle
+
+```http
+GET /vehicle/state
+POST /vehicle/reset
+```
+
+Reads or resets the simulated vehicle state.
+
+### Assistant
+
+```http
+POST /assistant/message
+```
+
+Processes text or voice-transcribed commands.
+
+Example request:
 
 ```json
 {
@@ -298,66 +433,85 @@ GET  /sessions/{session_id}
 }
 ```
 
-### Assistant response
-
-```json
-{
-  "reply": "I set the driver's temperature to 24°C.",
-  "actions": [],
-  "allowed": true,
-  "state": {}
-}
-```
-
-The `speaker` field can be:
+The `speaker` can be:
 
 ```text
 driver
 passenger
 ```
 
-The `input_type` field can be:
+The `input_type` can be:
 
 ```text
 text
 voice
 ```
 
-## User Profiles and Preferences
+### Speech
 
-Users can have a stable `user_id`, name, email and personal preferences.
+```http
+POST /speech/transcribe
+```
 
-The application supports:
+Receives an audio file and returns the transcribed text.
 
+### Users
+
+```http
+POST /users
+GET /users/{user_id}
+POST /auth/login
+```
+
+These endpoints support user creation, user retrieval and login.
+
+### Profiles
+
+```http
+POST /profiles
+GET /profiles
+GET /profiles/{profile_id}
+PUT /profiles/{profile_id}
+```
+
+These endpoints manage user-specific vehicle preferences.
+
+### Sessions
+
+```http
+POST /sessions
+GET /sessions/{session_id}
+POST /sessions/{session_id}/participants
+POST /sessions/{session_id}/profile
+POST /sessions/{session_id}/close
+```
+
+These endpoints manage the current vehicle session and its participants.
+
+## Database
+
+The backend uses SQLite for persistent storage.
+
+The database stores:
+
+- Users
+- Hashed passwords
+- User profiles
+- Vehicle preferences
+- Vehicle sessions
+- Session participants
 - Driver and passenger roles
-- Current vehicle session
-- User-specific preferences
-- Driver-specific temperature and seat heating
-- Passenger-specific temperature and seat heating
-- Fan speed preference
-- Volume preference
-- Ambient light preference
+- Voice enrollment fields prepared for future speaker recognition
 
-The frontend is prepared to communicate with the persistent user and profile endpoints provided by the backend.
+The database is initialized automatically when the backend starts.
 
-## Safety
-
-The backend validates the requested vehicle actions before changing the vehicle state.
-
-Unsupported or dangerous commands are rejected and do not modify the simulated vehicle state.
-
-The system is designed to prevent commands related to:
-
-- Acceleration
-- Braking
-- Dangerous driving actions
-- Unsupported vehicle operations
+Sensitive information such as passwords, API keys and audio files must not be committed to Git.
 
 ## Weather and Time
 
-The application header displays the current time, updated every second.
+The frontend displays the current time and updates it every second.
 
-Weather information is loaded from the Open-Meteo API using the coordinates of Cluj-Napoca:
+Weather data is loaded from the Open-Meteo API using the coordinates of Cluj-Napoca:
 
 ```text
 Latitude: 46.7712
@@ -366,9 +520,19 @@ Longitude: 23.6236
 
 The browser geolocation API is not required.
 
-## Running the Project
+## Installation and Setup
 
-### Backend
+### Requirements
+
+Install the following tools:
+
+- Python 3.11 or newer
+- Node.js and npm
+- Git
+- An OpenAI API key
+- A supported browser with microphone access
+
+### Backend Setup
 
 Open a terminal in the backend directory:
 
@@ -376,13 +540,13 @@ Open a terminal in the backend directory:
 cd C:\Endava\EndevLocal\team1_placeholder\backend
 ```
 
-Create the virtual environment if it does not already exist:
+Create the virtual environment:
 
 ```powershell
 python -m venv .venv
 ```
 
-Activate the virtual environment:
+Activate it:
 
 ```powershell
 .venv\Scripts\Activate.ps1
@@ -395,13 +559,15 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+Configure the required environment variables according to the backend configuration.
+
 Start the backend:
 
 ```powershell
 python -m uvicorn app.main:app --reload
 ```
 
-The backend will be available at:
+The backend will run at:
 
 ```text
 http://127.0.0.1:8000
@@ -413,15 +579,15 @@ Swagger documentation:
 http://127.0.0.1:8000/docs
 ```
 
-To deactivate the virtual environment:
+To leave the virtual environment:
 
 ```powershell
 deactivate
 ```
 
-### Frontend
+### Frontend Setup
 
-Open a second terminal in the frontend directory:
+Open a second terminal:
 
 ```powershell
 cd C:\Endava\EndevLocal\team1_placeholder\frontend
@@ -439,23 +605,31 @@ Start the development server:
 npm.cmd run dev
 ```
 
-The frontend will be available at:
+The frontend will run at:
 
 ```text
 http://localhost:5173
 ```
 
-### Frontend production build
+### Frontend Build
 
-To verify the TypeScript code and create a production build:
+To check the TypeScript code and create a production build:
 
 ```powershell
 npm.cmd run build
 ```
 
+### Backend Tests
+
+From the backend directory, with the virtual environment activated:
+
+```powershell
+pytest
+```
+
 ## Development Workflow
 
-The project uses Git and GitLab for version control.
+The project uses Git and GitLab branches.
 
 Recommended workflow:
 
@@ -463,6 +637,8 @@ Recommended workflow:
 Update dev branch
         ↓
 Create a feature branch
+        ↓
+Write or update the specification
         ↓
 Implement the feature
         ↓
@@ -486,38 +662,44 @@ git push -u origin HEAD
 
 The project currently includes:
 
-- Component-based React frontend
-- TypeScript type definitions
-- Cockpit dashboard
-- Vehicle state visualization
-- AI chat interface
-- Voice recording and transcription flow
-- User profile interface
-- Preference management
-- Driver and passenger roles
-- Session support
-- Backend API integration
-- Ambient lighting controls
-- Weather and time display
-- Responsive styling
-- Loading and error states
+- React and TypeScript frontend
+- FastAPI backend
+- AI command interpretation
+- Whisper voice transcription
+- Simulated vehicle service
 - Safety validation
+- SQLite persistence
+- User accounts
+- Login endpoint
+- User profiles
+- Vehicle preferences
+- Active vehicle sessions
+- Driver and passenger roles
+- Cockpit dashboard
+- Media controls
+- Ambient lighting
+- Text commands
+- Voice commands
+- Responsive styling
+- Automated backend tests
 
 ## Future Improvements
 
 Possible future improvements include:
 
-- Complete JWT authentication
+- Full JWT authentication
 - Persistent frontend authentication state
 - Speaker recognition
 - Voice enrollment
-- Automatic speaker role identification
-- Applying user profiles directly to the vehicle state
+- Voice embeddings
+- Automatic speaker identification
+- Automatic role detection
+- Applying profiles directly to the vehicle state
 - More advanced microphone animations
 - Improved mobile and tablet layouts
 - Integration with real vehicle data
 - Additional safety and permission rules
-- Full automated frontend and backend test coverage
+- More extensive frontend test coverage
 
 ## License
 
