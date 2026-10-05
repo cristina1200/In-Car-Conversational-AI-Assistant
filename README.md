@@ -1,254 +1,433 @@
-# In-Car Conversational AI – Frontend
+# In-Car Conversational AI Assistant
 
-A modern cockpit-style frontend for an in-car conversational AI assistant. The interface is designed to help drivers and passengers interact with vehicle functions through a clear, hands-free-oriented visual experience.
+A modern cockpit-style web application that allows drivers and passengers to interact with vehicle functions through natural language and voice commands.
+
+The assistant can control climate settings, seat heating, fan speed, media, volume and ambient lighting. The application combines a React frontend with a FastAPI backend and an AI processing module.
+
+## Features
+
+- Cockpit-style vehicle dashboard
+- Driver and passenger temperature display
+- Animated temperature dials
+- Driver and passenger seat heating levels
+- Fan speed indicator
+- Volume control and progress visualization
+- Media status and current song display
+- Ambient lighting controls
+- Romanian natural-language commands
+- Text-based AI assistant
+- Voice command recording using the browser microphone
+- Audio transcription using Whisper
+- Scrollable assistant chat
+- Automatic scroll to the newest message
+- Quick command buttons
+- Loading and error states
+- Driver and passenger role selection
+- User preferences management
+- Driver-specific and passenger-specific preferences
+- Apply Preferences functionality
+- Login and Sign up interface
+- User profile menu
+- Current user and session information
+- Current time display
+- Cluj-Napoca weather display
+- Responsive layout for smaller screens
+- Safety validation for unsupported vehicle commands
 
 ## Technologies
 
-* React
-* TypeScript
-* Vite
-* CSS
-* HTML
+### Frontend
 
-## Implemented Features
+- React
+- TypeScript
+- Vite
+- HTML
+- CSS
+- Fetch API
+- MediaRecorder API
+- Browser localStorage
 
-* Dark navy-blue cockpit interface
-* Virtual cockpit dashboard
-* Sidebar navigation
-* Cabin, Navigation, Media, and Vehicle sections
-* Application header with:
+### Backend
 
-  * Weather information
-  * Current time
-  * Active user profile
-* Driver and Passenger profile selection
-* Expandable account menu
-* Add new account option
-* Login modal prototype
-* Sign up modal prototype
-* Central cockpit dashboard
-* Temperature controls for the driver and passenger
-* Animated temperature dial
-* Fan speed indicator
-* Driver and passenger seat heating levels
-* Three-level seat heating indicators
-* Volume progress bar
-* Current media information
-* Ambient light indicator
-* AI assistant chat interface
-* User and assistant message bubbles
-* Quick command buttons
-* Loading state while processing a command
-* Error message display
-* Scrollable chat area
-* Responsive layout for smaller screens
+- Python
+- FastAPI
+- SQLite
+- Pydantic
+- Uvicorn
+- Pytest
+- Whisper for audio transcription
+- OpenAI API for conversational command processing
+
+## Application Architecture
+
+The project is divided into three main parts:
+
+```text
+Frontend → Backend API → AI and Vehicle Services
+```
+
+The frontend is responsible for displaying the cockpit interface, collecting user input and sending requests to the backend.
+
+The backend processes messages, validates vehicle actions, updates the simulated vehicle state and returns the result to the frontend.
+
+The AI module interprets natural-language commands and converts them into structured vehicle actions.
 
 ## Frontend Structure
 
 ```text
-src/
-├── components/
-│   ├── Layout.tsx
-│   ├── Layout.css
-│   ├── Cockpit.tsx
-│   ├── Cockpit.css
-│   ├── AssistantPanel.tsx
-│   ├── AssistantPanel.css
-│   ├── AccountMenu.tsx
-│   └── AccountMenu.css
+frontend/
+├── public/
+│   └── dashboard assets
 │
-├── services/
-│   └── api.ts
+├── src/
+│   ├── components/
+│   │   ├── AccountMenu.tsx
+│   │   ├── AccountMenu.css
+│   │   ├── AmbientLighting.tsx
+│   │   ├── AmbientLighting.css
+│   │   ├── AssistantPanel.tsx
+│   │   ├── AssistantPanel.css
+│   │   ├── Cockpit.tsx
+│   │   ├── Cockpit.css
+│   │   ├── FanIndicator.tsx
+│   │   ├── Layout.tsx
+│   │   ├── Layout.css
+│   │   ├── MediaPanel.tsx
+│   │   ├── MediaPanel.css
+│   │   ├── PreferencesPanel.tsx
+│   │   ├── PreferencesPanel.css
+│   │   ├── SeatHeatingIndicator.tsx
+│   │   ├── VehicleStatus.tsx
+│   │   └── VehicleStatus.css
+│   │
+│   ├── hooks/
+│   │   ├── useAnimatedNumber.ts
+│   │   └── useSpeechRecognition.ts
+│   │
+│   ├── services/
+│   │   ├── api.ts
+│   │   └── profileStorage.ts
+│   │
+│   ├── App.tsx
+│   ├── App.css
+│   ├── index.css
+│   ├── main.tsx
+│   └── types.ts
 │
-├── App.tsx
-├── App.css
-├── index.css
-├── types.ts
-└── main.tsx
+├── package.json
+└── vite.config.ts
 ```
 
-## Component Responsibilities
+## Main Components
 
 ### Layout
 
-The `Layout` component defines the general structure of the application.
+The `Layout` component defines the general application structure.
 
 It contains:
 
-* Sidebar navigation
-* Application header
-* Weather display
-* Current time
-* Active user profile
-* Main content area
+- Sidebar navigation
+- Application header
+- Current weather
+- Current time
+- Active user profile
+- Main content area
 
 ### Cockpit
 
-The `Cockpit` component represents the virtual vehicle dashboard.
+The `Cockpit` component displays the main vehicle dashboard.
 
 It contains:
 
-* Driver temperature control
-* Passenger temperature control
-* Rotating temperature dials
-* Fan speed display
-* Seat heating indicators
-* Volume control
-* Ambient light information
-* Media information
-* Dashboard status cards
+- Driver temperature
+- Passenger temperature
+- Animated temperature dials
+- Seat heating status
+- Fan speed
+- Volume
+- Media status
+- Air conditioning status
+- Ambient lighting status
+- User preference summary
 
 ### AssistantPanel
 
-The `AssistantPanel` component represents the conversational interface.
+The `AssistantPanel` component contains the conversational interface.
 
-It contains:
+It provides:
 
-* Assistant header
-* User messages
-* Assistant responses
-* Message bubbles
-* Quick command buttons
-* Text input
-* Microphone button placeholder
-* Send button
-* Loading indicator
-* Scrollable conversation area
-* Error messages
+- User and assistant messages
+- Message bubbles
+- Quick commands
+- Text input
+- Microphone recording
+- Send button
+- Loading state
+- Error messages
+- Scrollable conversation history
 
 ### AccountMenu
 
-The `AccountMenu` component manages the user profile interface.
+The `AccountMenu` component manages the current user profile.
 
-It contains:
+It provides:
 
-* Active Driver profile
-* Passenger profile
-* Expandable account bar
-* Add new account button
-* Login interface
-* Sign up interface
-* Email and password fields
-* Close button for the authentication modal
+- Active user display
+- Driver and passenger role selection
+- Expandable profile menu
+- Login interface
+- Sign up interface
+- Edit Preferences option
+- Logout functionality
 
-The authentication interface is currently a visual prototype. Its purpose is to establish the final user experience before the real authentication functionality is implemented.
+### PreferencesPanel
 
-## Dashboard Design
+The `PreferencesPanel` allows the current user to configure personal vehicle preferences.
 
-The interface uses a dark navy-blue visual theme inspired by modern vehicle infotainment systems.
+Depending on the selected role, the user can configure:
 
-The dashboard includes:
+- Driver or passenger temperature
+- Driver or passenger seat heating
+- Fan speed
+- Volume
+- Ambient lighting
 
-* Dark blue backgrounds
-* Light blue highlights
-* Cyan and red temperature indicators
-* Glowing control elements
-* Rounded panels
-* Clear visual hierarchy
-* High contrast text
-* Smooth transitions and animations
+The selected preferences can be saved and applied to the current vehicle session.
 
-The central cockpit area is designed to resemble a vehicle dashboard. The temperature controls use circular dials to visually represent climate values.
+### AmbientLighting
 
-## Temperature Controls
+The `AmbientLighting` component allows the user to select the interior lighting color.
 
-The driver and passenger temperatures are displayed separately.
+Available colors include:
 
-Each temperature control includes:
+- Blue
+- Red
+- Green
+- White
+- Purple
+- Yellow
 
-* User label
-* Current temperature
-* Circular dial
-* Rotating indicator
-* Climate label
-* Blue and red visual temperature scale
+The interface displays the colors in English, while the generated chat commands use Romanian color names such as `albastru`, `roșu`, `alb` and `mov`.
 
-The dial changes its position when the temperature value changes. Lower temperatures are represented using blue tones, while higher temperatures use warmer colors.
+## Voice Command Flow
 
-## Seat Heating Controls
-
-The seat heating interface uses three visual levels:
+The voice interaction follows this flow:
 
 ```text
-Level 0: ▯ ▯ ▯
-Level 1: ▮ ▯ ▯
-Level 2: ▮ ▮ ▯
-Level 3: ▮ ▮ ▮
+User presses the microphone button
+        ↓
+Browser records audio using MediaRecorder
+        ↓
+Audio file is sent to /speech/transcribe
+        ↓
+Whisper converts audio into text
+        ↓
+The text is sent to /assistant/message
+        ↓
+The AI interprets the command
+        ↓
+The vehicle state is updated
+        ↓
+The response is displayed in the chat
 ```
 
-The levels are also represented through colors:
+Voice recording is implemented on the frontend, while audio transcription is handled by the backend.
 
-* Level 0: grey
-* Level 1: light blue
-* Level 2: orange
-* Level 3: red
+## Text Command Flow
 
-This ensures that the user can understand the selected level even without relying only on color.
-
-## Assistant Chat
-
-The assistant chat is displayed in a dedicated panel on the right side of the application.
-
-The chat interface includes:
-
-* Separate user and assistant messages
-* Different colors for each message type
-* Rounded message bubbles
-* Assistant avatar
-* User avatar
-* Quick command suggestions
-* Scrollable conversation history
-* Text input field
-* Microphone button placeholder
-* Send button
-
-The chat area has its own scrollbar so the entire page does not need to be scrolled when the conversation becomes longer.
-
-## Account Interface
-
-The account bar is displayed in the top-right corner.
-
-When collapsed, it displays the current profile:
+For a text command, the flow is:
 
 ```text
-● Driver ⌄
+User enters a message
+        ↓
+Frontend sends the message to the backend
+        ↓
+AI interprets the request
+        ↓
+Backend validates the action
+        ↓
+Vehicle state is updated
+        ↓
+Frontend displays the response
 ```
 
-When expanded, it displays:
+Example commands:
 
 ```text
-Select profile
-
-● Driver       ✓
-● Passenger
-
-＋ Add new account
+Set the temperature to 24 degrees
+Turn on the seat heating
+Increase the volume
+Set the ambient light to purple
 ```
 
-Selecting `Add new account` opens the authentication modal with Login and Sign up options.
+The frontend also supports Romanian commands generated from preference selections, such as:
 
-## Responsive Design
+```text
+Setează temperatura șoferului la 22 de grade
+Setează lumina ambientală pe mov
+Dă muzica mai tare
+```
 
-The frontend adapts to different screen sizes.
+## Backend API
 
-On smaller screens:
+The frontend communicates with the following backend endpoints:
 
-* The sidebar is hidden
-* The main content uses the full available width
-* The cockpit and assistant panel are displayed vertically
-* Status cards use multiple rows
-* The chat remains scrollable
-* The account menu remains accessible
+```text
+GET  /health
+GET  /vehicle/state
+POST /vehicle/reset
+POST /assistant/message
+POST /speech/transcribe
+POST /users
+POST /auth/login
+GET  /users/{user_id}
+POST /profiles
+GET  /profiles
+PUT  /profiles/{profile_id}
+POST /sessions
+GET  /sessions/{session_id}
+```
 
-## Running the Frontend
+### Assistant message request
 
-Open a terminal in the frontend directory:
+```json
+{
+  "message": "Set the temperature to 24 degrees",
+  "speaker": "driver",
+  "input_type": "text"
+}
+```
+
+### Assistant response
+
+```json
+{
+  "reply": "I set the driver's temperature to 24°C.",
+  "actions": [],
+  "allowed": true,
+  "state": {}
+}
+```
+
+The `speaker` field can be:
+
+```text
+driver
+passenger
+```
+
+The `input_type` field can be:
+
+```text
+text
+voice
+```
+
+## User Profiles and Preferences
+
+Users can have a stable `user_id`, name, email and personal preferences.
+
+The application supports:
+
+- Driver and passenger roles
+- Current vehicle session
+- User-specific preferences
+- Driver-specific temperature and seat heating
+- Passenger-specific temperature and seat heating
+- Fan speed preference
+- Volume preference
+- Ambient light preference
+
+The frontend is prepared to communicate with the persistent user and profile endpoints provided by the backend.
+
+## Safety
+
+The backend validates the requested vehicle actions before changing the vehicle state.
+
+Unsupported or dangerous commands are rejected and do not modify the simulated vehicle state.
+
+The system is designed to prevent commands related to:
+
+- Acceleration
+- Braking
+- Dangerous driving actions
+- Unsupported vehicle operations
+
+## Weather and Time
+
+The application header displays the current time, updated every second.
+
+Weather information is loaded from the Open-Meteo API using the coordinates of Cluj-Napoca:
+
+```text
+Latitude: 46.7712
+Longitude: 23.6236
+```
+
+The browser geolocation API is not required.
+
+## Running the Project
+
+### Backend
+
+Open a terminal in the backend directory:
+
+```powershell
+cd C:\Endava\EndevLocal\team1_placeholder\backend
+```
+
+Create the virtual environment if it does not already exist:
+
+```powershell
+python -m venv .venv
+```
+
+Activate the virtual environment:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Install the dependencies:
+
+```powershell
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Start the backend:
+
+```powershell
+python -m uvicorn app.main:app --reload
+```
+
+The backend will be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+Swagger documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+To deactivate the virtual environment:
+
+```powershell
+deactivate
+```
+
+### Frontend
+
+Open a second terminal in the frontend directory:
 
 ```powershell
 cd C:\Endava\EndevLocal\team1_placeholder\frontend
 ```
 
-Install the project dependencies:
+Install the dependencies:
 
 ```powershell
 npm.cmd install
@@ -260,41 +439,86 @@ Start the development server:
 npm.cmd run dev
 ```
 
-The application will be available at:
+The frontend will be available at:
 
 ```text
 http://localhost:5173
 ```
 
+### Frontend production build
+
+To verify the TypeScript code and create a production build:
+
+```powershell
+npm.cmd run build
+```
+
+## Development Workflow
+
+The project uses Git and GitLab for version control.
+
+Recommended workflow:
+
+```text
+Update dev branch
+        ↓
+Create a feature branch
+        ↓
+Implement the feature
+        ↓
+Run tests and build checks
+        ↓
+Push the branch
+        ↓
+Create a merge request
+```
+
+Example:
+
+```powershell
+git switch dev
+git pull
+git switch -c 001-feature-name
+git push -u origin HEAD
+```
+
 ## Development Status
 
-Implemented frontend functionality:
+The project currently includes:
 
-* React and TypeScript project setup
-* Component-based frontend structure
-* Cockpit dashboard interface
-* Temperature visualization
-* Seat heating visualization
-* Volume visualization
-* Fan speed visualization
-* Media status visualization
-* Ambient light visualization
-* AI chat interface
-* Quick command interface
-* Expandable account menu
-* Login and Sign up modal prototype
-* Responsive styling
-* Scrollable chat panel
-* Navy-blue cockpit theme
+- Component-based React frontend
+- TypeScript type definitions
+- Cockpit dashboard
+- Vehicle state visualization
+- AI chat interface
+- Voice recording and transcription flow
+- User profile interface
+- Preference management
+- Driver and passenger roles
+- Session support
+- Backend API integration
+- Ambient lighting controls
+- Weather and time display
+- Responsive styling
+- Loading and error states
+- Safety validation
 
-## Future Frontend Improvements
+## Future Improvements
 
-* Replace the temporary navigation visualization with the final cockpit design
-* Improve positioning of the dashboard controls
-* Add a functional microphone interaction
-* Add listening-state animations
-* Add more detailed seat heating animations
-* Add smoother temperature dial transitions
-* Improve mobile and tablet layouts
-* Add visual feedback for rejected commands
-* Add user profile personalization
+Possible future improvements include:
+
+- Complete JWT authentication
+- Persistent frontend authentication state
+- Speaker recognition
+- Voice enrollment
+- Automatic speaker role identification
+- Applying user profiles directly to the vehicle state
+- More advanced microphone animations
+- Improved mobile and tablet layouts
+- Integration with real vehicle data
+- Additional safety and permission rules
+- Full automated frontend and backend test coverage
+
+## License
+
+This project was developed as part of an academic and internship project focused on conversational AI for automotive applications.
