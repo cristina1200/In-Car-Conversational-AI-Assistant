@@ -1,0 +1,1016 @@
+.cockpit {
+  width: 100%;
+  overflow: hidden;
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.dashboard-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-image: url("/dashboard-background.png");
+  background-position: center;
+  background-size: cover;
+}
+
+/* One transparent content area over the navigation screen */
+
+.cockpit-info-overlay {
+  position: absolute;
+  top: 9%;
+  left: 17%;
+  width: 66%;
+  height: 53%;
+  padding: 3% 3.5%;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  color: #ecf8ff;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+/* Cabin view */
+
+.cockpit-info-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  height: 22%;
+  padding-bottom: 7px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(190, 220, 240, 0.2);
+}
+
+.cockpit-info-label,
+.section-label {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--accent-color);
+  transition: color 0.8s ease;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.cockpit-info-header h2,
+.cockpit-info-overlay h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(13px, 1.35vw, 18px);
+  line-height: 1.1;
+}
+
+.cockpit-info-header p {
+  margin-top: 3px;
+  color: #91aec2;
+  font-size: 8px;
+}
+
+.cockpit-connection {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 4px;
+  color: #a8c4d7;
+  font-size: 8px;
+  line-height: 1;
+}
+
+.cockpit-connection span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fd0000;
+  box-shadow: 0 0 7px #fd0000;
+}
+
+.cockpit-connection.connected span {
+  background: #59d49b;
+  box-shadow: 0 0 9px #59d49b;
+}
+
+.cockpit-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  height: 78%;
+  padding-top: 7px;
+  box-sizing: border-box;
+}
+
+.info-item {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(111, 181, 218, 0.16);
+  border-radius: 7px;
+  background: rgba(5, 25, 42, 0.42);
+}
+
+.info-icon {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 5px;
+  color: var(--accent-color);
+
+  transition:
+    color 0.8s ease,
+    box-shadow 0.8s ease;
+  background: rgba(45, 139, 194, 0.25);
+  font-size: 12px;
+}
+
+.info-item > div {
+  min-width: 0;
+}
+
+.info-title {
+  display: block;
+  margin-bottom: 2px;
+  overflow: hidden;
+  color: #8eafc3;
+  font-size: 8px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.info-item strong {
+  display: block;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.info-item small {
+  display: block;
+  margin-top: 2px;
+  overflow: hidden;
+  color: #8daabd;
+  font-size: 7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.state-on {
+  color: #65e5a0 !important;
+}
+
+.state-off {
+  color: #9aaabb !important;
+}
+
+.light-name {
+  text-transform: capitalize;
+}
+
+.info-progress {
+  width: 100%;
+  height: 3px;
+  margin-top: 4px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: #29465d;
+}
+
+.info-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2da7f4, #7bd9ff);
+}
+
+/* Media, Vehicle and Ambient panels use the same transparent area */
+
+.cockpit-info-overlay > .media-panel,
+.cockpit-info-overlay > .vehicle-status,
+.cockpit-info-overlay > .ambient-lighting {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.cockpit-info-overlay > .guest-preferences {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+}
+
+.guest-preferences h2 {
+  margin: 6px 0 8px;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.guest-preferences p {
+  max-width: 360px;
+  margin: 0;
+  color: #91aec2;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.guest-preferences-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.guest-preferences-actions button {
+  min-width: 90px;
+  padding: 10px 14px;
+  border: 1px solid rgba(76, 180, 241, 0.25);
+  border-radius: 12px;
+  color: #84d0ff;
+  background: rgba(17, 72, 108, 0.45);
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.guest-preferences-actions button:hover {
+  border-color: #5cc5ff;
+  color: #ffffff;
+  background: rgba(35, 119, 174, 0.65);
+}
+
+/* Media compact layout */
+
+.cockpit-info-overlay > .media-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cockpit-info-overlay .media-panel-header {
+  padding-bottom: 8px;
+}
+
+.cockpit-info-overlay .media-panel h2 {
+  font-size: 18px;
+}
+
+.cockpit-info-overlay .media-player {
+  margin: 10px 0;
+  padding: 9px;
+}
+
+.cockpit-info-overlay .media-controls {
+  margin: 4px 0;
+}
+
+.cockpit-info-overlay .media-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.cockpit-info-overlay .media-actions > button {
+  display: flex;
+  width: 72px;
+  min-width: 72px;
+  height: 32px;
+  min-height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  border: 1px solid #4dbbff;
+  border-radius: 9px;
+  color: #ffffff;
+  background: #102b43;
+}
+
+.cockpit-info-overlay .media-volume {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Ambient compact layout */
+
+.cockpit-info-overlay .ambient-lighting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cockpit-info-overlay .ambient-lighting-header {
+  padding-bottom: 9px;
+}
+
+.cockpit-info-overlay .ambient-lighting h2 {
+  font-size: 18px;
+}
+
+.cockpit-info-overlay .ambient-current {
+  margin: 10px 0;
+  padding: 8px 10px;
+}
+
+.cockpit-info-overlay .ambient-colors {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.cockpit-info-overlay .ambient-color-button {
+  min-height: 30px;
+  padding: 5px 3px;
+  font-size: 8px;
+}
+
+.cockpit-info-overlay .ambient-description {
+  display: none;
+}
+
+/* Vehicle compact layout */
+
+.cockpit-info-overlay > .vehicle-status {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cockpit-info-overlay .vehicle-status-header {
+  padding-bottom: 9px;
+}
+
+.cockpit-info-overlay .vehicle-status h2 {
+  font-size: 18px;
+}
+
+.cockpit-info-overlay .vehicle-status-grid {
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.cockpit-info-overlay .vehicle-status-card {
+  min-height: 60px;
+  padding: 7px;
+}
+
+.cockpit-info-overlay .vehicle-status-card strong {
+  font-size: 13px;
+}
+
+.cockpit-info-overlay .vehicle-status-card small {
+  font-size: 7px;
+}
+
+.cockpit-info-overlay .vehicle-status-footer {
+  margin-top: 10px;
+  padding-top: 8px;
+  font-size: 8px;
+}
+
+@media (max-width: 700px) {
+  .cockpit-info-overlay {
+    top: 8%;
+    left: 15%;
+    width: 70%;
+    height: 54%;
+    padding: 3%;
+  }
+
+  .cockpit-info-grid {
+    gap: 5px;
+  }
+
+  .info-item {
+    padding: 5px;
+  }
+}
+.cockpit-info-overlay > .vehicle-status {
+  justify-content: center;
+  transform: scale(0.88);
+  transform-origin: center;
+}
+
+.info-item-active {
+  animation: controlPulse 0.8s ease;
+}
+
+@keyframes controlPulse {
+  0% {
+    box-shadow: 0 0 0 rgba(77, 187, 255, 0);
+    border-color: rgba(111, 181, 218, 0.16);
+  }
+
+  50% {
+    box-shadow: 0 0 18px rgba(77, 187, 255, 0.45);
+    border-color: rgba(77, 187, 255, 0.8);
+  }
+
+  100% {
+    box-shadow: 0 0 0 rgba(77, 187, 255, 0);
+    border-color: rgba(111, 181, 218, 0.16);
+  }
+}
+
+.volume-icon-active {
+  animation: volumeIconPulse 0.8s ease;
+}
+
+@keyframes volumeIconPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.temperature-icon-active {
+  animation: temperatureIconPulse 0.8s ease;
+}
+
+@keyframes temperatureIconPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.climate-controls {
+  position: absolute;
+
+  left: 22.9%;
+  right: 22.5%;
+  bottom: 15.5%;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+
+  gap: 18px;
+
+  pointer-events: none;
+}
+
+.climate-dial {
+  position: relative;
+
+  width: clamp(52px, 6.2vw, 78px);
+  aspect-ratio: 1;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(5, 13, 22, 0.96) 0%,
+      rgba(5, 13, 22, 0.96) 62%,
+      transparent 63%
+    );
+
+  box-shadow:
+    inset 0 0 12px rgba(90, 180, 255, 0.12),
+    0 0 8px rgba(55, 160, 255, 0.18);
+}
+
+.climate-dial-content {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  z-index: 3;
+}
+
+.climate-dial-content strong {
+  color: #ffffff;
+
+  font-size: clamp(11px, 1.15vw, 16px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.climate-dial-content small {
+  margin-top: 3px;
+
+  color: #6bc8ff;
+
+  font-size: clamp(5px, 0.45vw, 7px);
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+}
+
+.climate-dial-indicator {
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 50%;
+
+  z-index: 2;
+
+  transition: transform 0.6s ease;
+}
+
+.climate-dial-indicator span {
+  position: absolute;
+
+  top: 1px;
+  left: 50%;
+
+  width: 5px;
+  height: 11px;
+
+  transform: translateX(-50%);
+
+  border-radius: 4px;
+
+  background: #7bd9ff;
+
+  box-shadow:
+    0 0 5px #7bd9ff,
+    0 0 10px rgba(123, 217, 255, 0.7);
+}
+
+.climate-dial-changed {
+  animation: climateDialPulse 0.8s ease;
+}
+
+@keyframes climateDialPulse {
+  0% {
+    box-shadow:
+      inset 0 0 10px rgba(100, 200, 255, 0.15),
+      0 0 7px rgba(57, 173, 255, 0.16);
+  }
+
+  50% {
+    box-shadow:
+      inset 0 0 16px rgba(100, 200, 255, 0.35),
+      0 0 22px rgba(57, 173, 255, 0.65);
+  }
+
+  100% {
+    box-shadow:
+      inset 0 0 10px rgba(100, 200, 255, 0.15),
+      0 0 7px rgba(57, 173, 255, 0.16);
+  }
+}
+
+.climate-dial::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  background:
+    conic-gradient(
+      from 210deg,
+      #35b7ff 0deg,
+      #35b7ff 80deg,
+      #8fdcff 115deg,
+      #ffffff 135deg,
+      #ff8c8c 160deg,
+      #ff3f4f 240deg,
+      transparent 240deg
+    );
+
+  -webkit-mask:
+    radial-gradient(
+      farthest-side,
+      transparent calc(100% - 6px),
+      #000 calc(100% - 5px)
+    );
+
+  mask:
+    radial-gradient(
+      farthest-side,
+      transparent calc(100% - 6px),
+      #000 calc(100% - 5px)
+    );
+
+  opacity: 0.95;
+}
+.fan-indicator {
+  position: relative;
+
+  left: 118px;
+  top: 16px;
+
+  display: flex;
+  width: 70px;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.fan-icon-glow {
+  position: absolute;
+
+  top: -21.5%;
+  left: 49.5%;
+
+  width: 23px;
+  height: 23px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.4s ease,
+    background 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+
+.fan-glow-0 {
+  opacity: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+
+.fan-glow-1 {
+  opacity: 0.4;
+
+  background: rgba(70, 180, 255, 0.04);
+
+  box-shadow:
+    0 0 4px rgba(70, 180, 255, 0.35);
+}
+
+
+.fan-glow-2 {
+  opacity: 0.7;
+
+  background: rgba(70, 190, 255, 0.07);
+
+  box-shadow:
+    0 0 6px rgba(70, 190, 255, 0.55),
+    0 0 10px rgba(70, 190, 255, 0.25);
+}
+
+
+.fan-glow-3 {
+  opacity: 1;
+
+  background: rgba(90, 210, 255, 0.1);
+
+  box-shadow:
+    0 0 8px rgba(90, 210, 255, 0.8),
+    0 0 14px rgba(90, 210, 255, 0.45);
+}
+
+
+.fan-level-track {
+  width: 48px;
+  height: 2px;
+
+
+  margin-top: 25px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(90, 130, 160, 0.25);
+}
+
+
+.fan-level-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    90deg,
+    #3ea9f5,
+    #8fddff
+  );
+
+  box-shadow:
+    0 0 5px rgba(80, 190, 255, 0.55);
+
+  transition: width 0.6s ease;
+}
+
+
+.fan-level-label {
+  margin-top: 3px;
+
+  color: #6fa9ca;
+
+  font-size: 6px;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+}
+.seat-heating-indicator {
+  position: absolute;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+.seat-heating-driver {
+  left: 25.7%;
+  bottom: 18%;
+}
+
+
+.seat-heating-passenger {
+  right: 25.7%;
+  bottom: 18%;
+}
+
+
+.seat-arc {
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 50%;
+
+  opacity: 0.18;
+
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 4px),
+    #000 calc(100% - 3px)
+  );
+
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(100% - 4px),
+    #000 calc(100% - 3px)
+  );
+
+  transition:
+    opacity 0.35s ease,
+    filter 0.35s ease;
+}
+
+
+.seat-arc-1 {
+  background: conic-gradient(
+    transparent 0deg 8deg,
+    #ff9a55 8deg 112deg,
+    transparent 112deg 360deg
+  );
+}
+
+
+.seat-arc-2 {
+  background: conic-gradient(
+    transparent 0deg 128deg,
+    #ff7045 128deg 232deg,
+    transparent 232deg 360deg
+  );
+}
+
+
+.seat-arc-3 {
+  background: conic-gradient(
+    transparent 0deg 248deg,
+    #ff4938 248deg 352deg,
+    transparent 352deg 360deg
+  );
+}
+
+
+.seat-arc.active {
+  opacity: 1;
+
+  filter:
+    drop-shadow(
+      0 0 3px rgba(255, 105, 55, 0.9)
+    )
+    drop-shadow(
+      0 0 6px rgba(255, 75, 40, 0.45)
+    );
+}
+
+.ambient-strips {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.ambient-strip {
+  position: absolute;
+
+  height: 3px;
+
+  border-radius: 999px;
+
+  background: var(--ambient-color);
+
+  opacity: 0.85;
+
+  box-shadow:
+    0 0 3px var(--ambient-color),
+    0 0 7px var(--ambient-color),
+    0 0 14px var(--ambient-color),
+    0 0 24px var(--ambient-color);
+
+  filter: brightness(1.25);
+
+  transition:
+    background 0.8s ease,
+    box-shadow 0.8s ease,
+    opacity 0.8s ease,
+    filter 0.8s ease;
+}
+
+.ambient-strip::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  top: -4px;
+
+  height: 9px;
+
+  border-radius: 999px;
+
+  background: var(--ambient-color);
+
+  opacity: 0.22;
+
+  filter: blur(5px);
+
+  pointer-events: none;
+}
+
+
+.ambient-strip-top-left {
+  top: 26.3%;
+  left: 5.8%;
+  width: 11%;
+}
+
+.ambient-strip-top-right {
+  top: 26.3%;
+  right: -0.5%;
+  width: 17%;
+}
+
+.ambient-strip-top-left::after,
+.ambient-strip-top-right::after {
+  content: "";
+
+  position: absolute;
+
+  /* Reflexia incepe imediat sub linie */
+  top: 0px;
+
+  /* Putin mai lata decat linia */
+  left: -5%;
+  width: 110%;
+
+  /* Cat de mult coboara lumina */
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: var(--ambient-color);
+
+  /* Reflexie subtila */
+  opacity: 0.30;
+
+  /* Face lumina difuza */
+  filter: blur(9px);
+
+  pointer-events: none;
+}
+
+.ambient-strip-middle {
+  left: 30.1%;
+  width: 40.5%;
+  bottom: 30.5%;
+}
+
+.ambient-strip-bottom {
+  left: 31%;
+  width: 38.5%;
+  bottom: 15%;
+}
+
+
+.ambient-strip-reflection {
+  left: 28.5%;
+  width: 43%;
+  bottom: 12.5%;
+
+  height: 1px;
+
+  opacity: 0.8;
+
+  box-shadow:
+    0 0 4px var(--ambient-color),
+    0 0 10px var(--ambient-color);
+}
+
+.ambient-strip-reflection::after {
+  content: "";
+
+  position: absolute;
+
+  left: -5%;
+  width: 110%;
+
+  top: 0px;
+
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: var(--ambient-color);
+
+  opacity: 0.40;
+
+  filter: blur(15px);
+
+  pointer-events: none;
+}
+
+.ambient-strip-changed {
+  animation: ambientLightPulse 0.9s ease;
+}
+
+@keyframes ambientLightPulse {
+  0% {
+    opacity: 0.75;
+    filter: brightness(1.1);
+  }
+
+  45% {
+    opacity: 1;
+    filter: brightness(2);
+  }
+
+  100% {
+    opacity: 0.85;
+    filter: brightness(1.25);
+  }
+}

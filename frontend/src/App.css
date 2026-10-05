@@ -1,0 +1,146 @@
+.app-dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(350px, 0.75fr);
+  gap: 20px;
+  width: 100%;
+  align-items: start;
+}
+
+.app-cockpit-column {
+  min-width: 0;
+}
+
+.app-dashboard > * {
+  min-width: 0;
+}
+
+@media (max-width: 1300px) {
+  .app-dashboard {
+    grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.8fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .app-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .app-cockpit-column {
+    width: 100%;
+  }
+
+  .app-dashboard .assistant-panel {
+    height: 650px;
+    min-height: 650px;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .app-cockpit-column,
+  .app-dashboard .assistant-panel {
+    width: 100%;
+  }
+
+  .app-dashboard .assistant-panel {
+    height: 600px;
+    min-height: 600px;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-dashboard {
+    gap: 12px;
+  }
+
+  .app-dashboard .assistant-panel {
+    height: 560px;
+    min-height: 560px;
+  }
+}
+.session-participants-panel {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(141, 190, 220, 0.2);
+  border-radius: 14px;
+  background: rgba(8, 25, 38, 0.72);
+}
+
+.session-participants-heading,
+.session-participants-panel li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.session-participants-heading {
+  color: #dff6ff;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.session-participants-heading > span:last-child {
+  color: #8db6cc;
+}
+
+.session-participants-panel ul {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.session-participants-panel li {
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: rgba(92, 154, 188, 0.1);
+  color: #b8d6e5;
+  font-size: 0.84rem;
+}
+
+.session-participants-panel li strong {
+  color: var(--accent-color);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.session-participant-actions,
+.session-participant-add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.session-participant-actions button,
+.session-participant-add button,
+.session-participant-add select {
+  border: 1px solid rgba(141, 190, 220, 0.3);
+  border-radius: 7px;
+  padding: 5px 8px;
+  background: rgba(8, 25, 38, 0.9);
+  color: #b8d6e5;
+  font-size: 0.72rem;
+}
+
+.session-participant-actions button:disabled,
+.session-participant-add button:disabled {
+  opacity: 0.45;
+}
+
+.session-participant-add {
+  margin-top: 12px;
+}
+
+.session-participants-empty {
+  margin: 10px 0 0;
+  color: #8db6cc;
+  font-size: 0.82rem;
+}

@@ -1,0 +1,360 @@
+.cockpit {
+  width: 100%;
+  overflow: hidden;
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.dashboard-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-image: url("/dashboard-background.png");
+  background-position: center;
+  background-size: cover;
+}
+
+/* One transparent content area over the navigation screen */
+
+.cockpit-info-overlay {
+  position: absolute;
+  top: 9%;
+  left: 17%;
+  width: 66%;
+  height: 53%;
+  padding: 3% 3.5%;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  color: #ecf8ff;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+/* Cabin view */
+
+.cockpit-info-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  height: 22%;
+  padding-bottom: 7px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(190, 220, 240, 0.2);
+}
+
+.cockpit-info-label,
+.section-label {
+  display: block;
+  margin-bottom: 3px;
+  color: #69c5ff;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.cockpit-info-header h2,
+.cockpit-info-overlay h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(13px, 1.35vw, 18px);
+  line-height: 1.1;
+}
+
+.cockpit-info-header p {
+  margin-top: 3px;
+  color: #91aec2;
+  font-size: 8px;
+}
+
+.cockpit-connection {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 5px;
+  color: #a8c4d7;
+  font-size: 8px;
+}
+
+.cockpit-connection span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f0a94a;
+}
+
+.cockpit-connection.connected span {
+  background: #59d49b;
+  box-shadow: 0 0 9px #59d49b;
+}
+
+.cockpit-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  height: 78%;
+  padding-top: 7px;
+  box-sizing: border-box;
+}
+
+.info-item {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(111, 181, 218, 0.16);
+  border-radius: 7px;
+  background: rgba(5, 25, 42, 0.42);
+}
+
+.info-icon {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 5px;
+  color: #75ceff;
+  background: rgba(45, 139, 194, 0.25);
+  font-size: 12px;
+}
+
+.info-item > div {
+  min-width: 0;
+}
+
+.info-title {
+  display: block;
+  margin-bottom: 2px;
+  overflow: hidden;
+  color: #8eafc3;
+  font-size: 8px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.info-item strong {
+  display: block;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.info-item small {
+  display: block;
+  margin-top: 2px;
+  overflow: hidden;
+  color: #8daabd;
+  font-size: 7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.state-on {
+  color: #65e5a0 !important;
+}
+
+.state-off {
+  color: #9aaabb !important;
+}
+
+.light-name {
+  text-transform: capitalize;
+}
+
+.info-progress {
+  width: 100%;
+  height: 3px;
+  margin-top: 4px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: #29465d;
+}
+
+.info-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2da7f4, #7bd9ff);
+}
+
+/* Media, Vehicle and Ambient panels use the same transparent area */
+
+.cockpit-info-overlay > .media-panel,
+.cockpit-info-overlay > .vehicle-status,
+.cockpit-info-overlay > .ambient-lighting {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Media compact layout */
+
+.cockpit-info-overlay > .media-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cockpit-info-overlay .media-panel-header {
+  padding-bottom: 8px;
+}
+
+.cockpit-info-overlay .media-panel h2 {
+  font-size: 18px;
+}
+
+.cockpit-info-overlay .media-player {
+  margin: 10px 0;
+  padding: 9px;
+}
+
+.cockpit-info-overlay .media-controls {
+  margin: 4px 0;
+}
+
+.cockpit-info-overlay .media-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.cockpit-info-overlay .media-actions > button {
+  display: flex;
+  width: 72px;
+  min-width: 72px;
+  height: 32px;
+  min-height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  border: 1px solid #4dbbff;
+  border-radius: 9px;
+  color: #ffffff;
+  background: #102b43;
+}
+
+.cockpit-info-overlay .media-volume {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Ambient compact layout */
+
+.cockpit-info-overlay .ambient-lighting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cockpit-info-overlay .ambient-lighting-header {
+  padding-bottom: 9px;
+}
+
+.cockpit-info-overlay .ambient-lighting h2 {
+  font-size: 18px;
+}
+
+.cockpit-info-overlay .ambient-current {
+  margin: 10px 0;
+  padding: 8px 10px;
+}
+
+.cockpit-info-overlay .ambient-colors {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.cockpit-info-overlay .ambient-color-button {
+  min-height: 30px;
+  padding: 5px 3px;
+  font-size: 8px;
+}
+
+.cockpit-info-overlay .ambient-description {
+  display: none;
+}
+
+/* Vehicle compact layout */
+
+.cockpit-info-overlay > .vehicle-status {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cockpit-info-overlay .vehicle-status-header {
+  padding-bottom: 9px;
+}
+
+.cockpit-info-overlay .vehicle-status h2 {
+  font-size: 18px;
+}
+
+.cockpit-info-overlay .vehicle-status-grid {
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.cockpit-info-overlay .vehicle-status-card {
+  min-height: 60px;
+  padding: 7px;
+}
+
+.cockpit-info-overlay .vehicle-status-card strong {
+  font-size: 13px;
+}
+
+.cockpit-info-overlay .vehicle-status-card small {
+  font-size: 7px;
+}
+
+.cockpit-info-overlay .vehicle-status-footer {
+  margin-top: 10px;
+  padding-top: 8px;
+  font-size: 8px;
+}
+
+@media (max-width: 700px) {
+  .cockpit-info-overlay {
+    top: 8%;
+    left: 15%;
+    width: 70%;
+    height: 54%;
+    padding: 3%;
+  }
+
+  .cockpit-info-grid {
+    gap: 5px;
+  }
+
+  .info-item {
+    padding: 5px;
+  }
+}
+.cockpit-info-overlay > .vehicle-status {
+  justify-content: center;
+  transform: scale(0.88);
+  transform-origin: center;
+}

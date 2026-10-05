@@ -1,0 +1,71 @@
+# Backend
+
+# Python virtual environments
+backend/.venv/
+.venv/
+
+# Python cache and compiled files
+backend/**/__pycache__/
+backend/**/*.py[cod]
+
+# Local SQLite data
+backend/data/*.sqlite3
+backend/data/*.db
+
+# Frontend dependencies
+frontend/node_modules/
+frontend/dist/
+dist/
+
+# Testing
+.pytest_cache/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+
+# Frontend
+
+# Dependencies
+frontend/node_modules/
+
+# Build output
+frontend/dist/
+frontend/dist-ssr/
+
+# Local frontend configuration
+frontend/**/*.local
+
+# Logs
+frontend/logs/
+frontend/**/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/lerna-debug.log*
+
+# Editor and operating system files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+# Testing
+
+.pytest_cache/
+pytest-cache-files-*/
+
+# Local generated test and decoder data
+backend/manual-decoder-data/
+backend/*-basetemp/
+frontend/.vscode/
